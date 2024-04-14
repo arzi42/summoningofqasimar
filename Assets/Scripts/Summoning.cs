@@ -11,6 +11,8 @@ namespace DefaultNamespace
         [SerializeField] private GameObject _room;
         [SerializeField] private ParticleSystem _summonParticles;
         [SerializeField] private AudioSource _audio;
+
+        [SerializeField] private GameObject _win;
         
         private static Summoning _instance;
 
@@ -19,21 +21,59 @@ namespace DefaultNamespace
             _instance = this;
         }
         
-        public static void Summon(string demonName, System.Action onCompleted)
+        public static void Summon(Demon demon, System.Action onCompleted)
         {
-            _instance._demonName.text = demonName;
+            _instance._demonName.text = demon.Name;
+            
+            _instance._demonSprite.GetComponent<SimpleAnimator>().SetAnimation(demon.Animation);
             
             _instance.StartCoroutine(_instance.Ritual(onCompleted));
+        }
+        
+        public static void Win()
+        {
+            _instance.StartCoroutine(_instance.WinRoutine());
+        }
+
+        public static void Dismiss()
+        {
+            _instance._room.SetActive(false);
+            
+            Music.FadeIn(2f);
+        }
+        
+        private IEnumerator WinRoutine()
+        {
+            _room.SetActive(true);
+            
+            _demonSprite.color = Color.clear;
+            
+            Music.FadeOut(1f);
+
+            yield return new WaitForSeconds(0.5f);
+            
+            _audio.Play();
+
+            yield return new WaitForSeconds(1f);
+            
+            _summonParticles.Play(true);
+
+            yield return new WaitForSeconds(8f);
+            
+            _win.SetActive(true);
         }
 
         private IEnumerator Ritual(System.Action onCompleted)
         {
             _room.SetActive(true);
             
-            _audio.Play();
-
-
             _demonSprite.color = Color.clear;
+            
+            Music.FadeOut(1f);
+
+            yield return new WaitForSeconds(0.5f);
+            
+            _audio.Play();
 
             yield return new WaitForSeconds(1f);
             
@@ -51,12 +91,10 @@ namespace DefaultNamespace
             
             _demonName.gameObject.SetActive(true);
             
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(4f);
             
             _demonName.gameObject.SetActive(false);
             
-            _room.SetActive(false);
-
             onCompleted();
         }
     }

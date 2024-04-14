@@ -43,8 +43,12 @@ namespace DefaultNamespace
             _onOpen.Invoke();
         }
         
+        
+        
         public void NextPage()
         {
+            Sounds.Play("page");
+            
             _currentPage++;
             
             if (_currentPage >= _pages.Count)

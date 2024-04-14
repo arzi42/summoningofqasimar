@@ -21,6 +21,8 @@ namespace DefaultNamespace
         [SerializeField] private GameObject _ritual;
         [SerializeField] private Sigils _sigils;
         [SerializeField] private Book _book;
+
+        [SerializeField] private List<SpriteAnimation> _demonSprites;
         
         private static GameController _instance;
 
@@ -31,7 +33,7 @@ namespace DefaultNamespace
         private Slot[] _slots;
 
         private bool _isNewDemon;
-
+        
         public static Sigils Sigils => _instance._sigils;
         
 
@@ -145,14 +147,21 @@ namespace DefaultNamespace
             _interrogationView.SetButtonTexts(strings);
             
             _ritual.SetActive(false);
+            
+            
 
             if (!_oldDemon)
             {
                 _currentDemon = new Demon();
                 _currentDemon.Name = DemonNameGenerator.Generate();
+                _currentDemon.Animation = _demonSprites[Random.Range(0, _demonSprites.Count)];
             }
-            
-            Summoning.Summon(_currentDemon.Name, isCorrect ? Win : Interrogate);
+
+            if (isCorrect)
+            {
+                Summoning.Win();
+            }
+            else Summoning.Summon(_currentDemon, Interrogate);
         }
 
         private void Win()
@@ -172,29 +181,31 @@ namespace DefaultNamespace
             tmp.gameObject.SetActive(true);
             tmp.text = _crypticAnswers[_instance._slots[i].name][0];
             
-            _instance.Invoke("HideAnswer", 2f);
+            _instance.Invoke("HideAnswer", 4f);
+            
+            Summoning.Dismiss();
 
             if (!Grimoire.Has(_instance._currentDemon.Name))
             {
-                _instance._currentTexts.RemoveAt(i);
+                _instance._isNewDemon = true;
+                //_instance._currentTexts.RemoveAt(i);
 
-                var text = _instance._currentTexts[Random.Range(0, _instance._currentTexts.Count)];
+                var text = _instance._currentTexts[i];
 
                 _instance._currentDemon.Sigil = text.Sigil;
                 _instance._currentDemon.SlotText = $"I {text.Sigil} {_crypticAnswers[text.Slot][0]}";
                 _instance._currentDemon.Slot = text.Slot;
             
                 Grimoire.Add(_instance._currentDemon);
-                
-                UI.ShowHint($"{_instance._currentDemon.Name} added to the grimoire");
 
-                if (Grimoire.Count == 3)
+                if (Grimoire.Count == 3 || Grimoire.Count == 5)
                 {
                     _instance._book.AddPage();
                 }
             }
             else
             {
+                _instance._isNewDemon = false;
                 _instance.RevealSlot(_instance._currentDemon);
             }
 
@@ -223,6 +234,9 @@ namespace DefaultNamespace
         {
             _answerText.gameObject.SetActive(false);
             _ritual.SetActive(true);
+            
+            if(_isNewDemon)
+                UI.ShowHint($"{_instance._currentDemon.Name} added to the grimoire");
         }
         
     }

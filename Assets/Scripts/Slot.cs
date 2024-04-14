@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
+using DefaultNamespace;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,6 +20,8 @@ public class Slot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerE
         sigil.OnSlotted(this);
         
         SetAlpha(0.3f);
+        
+        Sounds.Play("slot");
 
         _currentSigil = sigil;
     }

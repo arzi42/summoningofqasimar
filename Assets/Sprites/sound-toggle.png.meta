@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: aa709410895dbff45bf3dc340e9c504e
+guid: 9c6ae81a9beed67489bfd2be500d773f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: demon_3_0
+      name: sound-toggle_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 64
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 87c1ac1fcefc21647b642eeb4f1752cc
-      internalID: 171756995
+      spriteID: 2369406dac1a1db4ebfea072c8bf98c5
+      internalID: -1055838102
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: demon_3_1
+      name: sound-toggle_1
       rect:
         serializedVersion: 2
-        x: 64
+        x: 16
         y: 0
-        width: 64
-        height: 64
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e5820e4334f5290498f7dea7b4995081
-      internalID: 1504863331
+      spriteID: 1f769606c8278ff4eb1c1a0c7e2ed472
+      internalID: -797337344
       vertices: []
       indices: 
       edges: []
@@ -162,8 +162,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      demon_3_0: 171756995
-      demon_3_1: 1504863331
+      sound-toggle_0: -1055838102
+      sound-toggle_1: -797337344
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

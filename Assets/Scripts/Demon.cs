@@ -7,5 +7,8 @@
         public string Sigil;
         public string Slot;
         public string SlotText;
+
+        public SpriteAnimation Animation;
     }
+    
 }

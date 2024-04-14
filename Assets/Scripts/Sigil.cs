@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -36,7 +37,10 @@ public class Sigil : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHan
         _image.raycastTarget = true;
 
         if (_currentSlot == null)
+        {
             transform.position = _startPosition;
+            Sounds.Play("pick");
+        }
         else transform.position = _currentSlot.transform.position;
     }
 
@@ -44,6 +48,8 @@ public class Sigil : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHan
     {
         _image.raycastTarget = false;
         _currentSlot = null;
+        
+        Sounds.Play("pick");
     }
 
     public void OnSlotted(Slot slot)
